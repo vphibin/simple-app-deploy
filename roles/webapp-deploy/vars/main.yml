@@ -1,0 +1,2 @@
+apache_vhosts:
+    - {servername: "ec2-52-10-238-131.us-west-2.compute.amazonaws.com", documentroot: "/var/www/simple-sinatra-app/public"}

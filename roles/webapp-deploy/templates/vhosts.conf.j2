@@ -1,0 +1,16 @@
+
+{% for vhost in apache_vhosts %}
+<VirtualHost *:80>
+  ServerName {{ vhost.servername }}
+  DocumentRoot {{ vhost.documentroot }}
+  <Directory "{{ vhost.documentroot }}">
+        Allow from all
+        Options -MultiViews
+        Require all granted
+  </Directory>
+</VirtualHost>
+
+
+
+{% endfor %}
+
