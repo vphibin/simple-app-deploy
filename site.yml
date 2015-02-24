@@ -1,0 +1,20 @@
+---
+# This playbook deploys the necessary packages into a plain  Linux OS image and whole application stack in this site.  
+
+- name: apply common configuration to all nodes
+  hosts: all
+  remote_user: ubuntu
+  sudo: yes
+
+  roles:
+    - common
+
+- name: configure and deploy the webservers and simple web application
+  hosts: webservers
+  remote_user: ubuntu
+  sudo: yes
+
+  roles:
+    - base-apache
+    - sinatra-passenger
+  #  - webapp-deploy

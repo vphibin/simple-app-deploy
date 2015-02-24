@@ -1,0 +1,8 @@
+---
+- name: Update apt cache before doing anything else
+  apt: update_cache=yes
+- name: ensure basic packages Ruby, Make are installed and at the latest version
+  apt: name={{ item }} state=latest
+  with_items:
+      - make
+      - ruby

@@ -1,0 +1,4 @@
+---
+- name: ensure Apache is installed and at the latest version
+  apt: name=apache2 state=latest
+  notify: restart apache

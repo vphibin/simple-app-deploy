@@ -1,0 +1,29 @@
+---
+#This playbook installs the web tier used to install the rack application.
+#This includes  Sinatra gem, and also the Phusion Passenger module for apache 
+
+#Install Sinatra through gem
+- name: Ensure Sinatra gem is installed and at the latest version
+  gem: name=sinatra state=latest
+
+##Add the APT repository for Phusion passenger
+- name: Add PGP key for Phusion passenger
+  apt_key: keyserver=keyserver.ubuntu.com id=561F9B9CAC40B2F7
+- name: Add HTTPS support for apt to enable passenger
+  apt: name={{ item }} state=latest
+  with_items:
+      - apt-transport-https
+      - ca-certificates
+- name: Copy passenger.list and set the right permissions
+  copy: src=passenger.list dest=/etc/apt/sources.list.d owner=root group=root mode=0600
+- name: Update apt cache 
+  apt: update_cache=yes
+
+#Install the package for Phusion Passenger
+- name: Install the package for Passenger
+  apt: name=libapache2-mod-passenger state=latest
+
+#Enable the Phusion Passenger apache module and restart apache
+- name: Enable the Phusion Passenger apache module
+  apache2_module: name=passenger state=present
+  notify: restart apache

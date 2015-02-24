@@ -1,0 +1,11 @@
+##### !!!! Uncomment the right line corresponding to the OS distribution!!!! #####
+# Ubuntu 14.04
+deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main
+# Ubuntu 12.04
+#deb https://oss-binaries.phusionpassenger.com/apt/passenger precise main
+# Ubuntu 10.04
+#deb https://oss-binaries.phusionpassenger.com/apt/passenger lucid main
+# Debian 7
+#deb https://oss-binaries.phusionpassenger.com/apt/passenger wheezy main
+# Debian 6
+#deb https://oss-binaries.phusionpassenger.com/apt/passenger squeeze main
