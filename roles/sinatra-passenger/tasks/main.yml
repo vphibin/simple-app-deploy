@@ -4,7 +4,8 @@
 
 #Install Sinatra through gem
 - name: Ensure Sinatra gem is installed and at the latest version
-  gem: name=sinatra state=latest
+  gem: name=sinatra state=latest user_install=no
+
 
 ##Add the APT repository for Phusion passenger
 - name: Add PGP key for Phusion passenger
