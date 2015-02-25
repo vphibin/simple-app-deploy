@@ -10,20 +10,22 @@ A Vanilla OS image (Ubuntu) is used. The playbook will perform the following on 
 - Deploys the web application
 
 ### Instructions
-The playbook can be used by using the following instructions:
-*Note: This has been tested in a Ubuntu 14.04 remote instance in an EC2 cluster*  
-1. Download and install Ansible if not already installed
+The playbook can be executed by using the following instructions:  
+*Note: This has been tested in a Ubuntu 14.04 remote instance in an EC2 environment*  
+1. Download and install Ansible if not already installed  
 [Install Ansible](http://docs.ansible.com/intro_installation.html#installation)  
 2. Download the repository using the following  
 ```git clone https://github.com/vphibin/simple-app-deploy.git```  
 3. Uncomment the line corresponding to the appropriate Ubuntu/Debian version (remote server instance) in the file roles/sinatra-passenger/files/passenger.list (right now ubuntu 14.04 is  selected). Comment out all other lines.  
-4. Update the hostname/DNS of your remote instance in the webservers section of the hosts file  
-5. Change the servername in the apache_hosts variable in roles/webapp-deploy/vars/main.yml to the hostname/DNS of your instance  
-6. Execute the playbook using following:  
-```$ ansible-playbook site.yml```  
+4. Update the hostname/DNS of your remote instance in the "web-servers" section of the hosts file (in the main directory)  
+5. Change the remote_username in the file group_vars/web-servers, if using a different user name for remote ssh  
+6. Execute the playbook using the following:  
+```$ ansible-playbook -i hosts site.yml```  
 If you are using a private key file to connect to remote host, execute as below  
-```$ ansible-playbook site.yml --private-key=/path/to/private/key/file```  
+```$ ansible-playbook -i hosts --private-key=/path/to/private/key/file site.yml```  
 
+Below is an example url where the application has been successfully deployed by using this playbook:
+[ec2-52-10-210-106.us-west-2.compute.amazonaws.com](ec2-52-10-210-106.us-west-2.compute.amazonaws.com)
 
 ### Credits
 
