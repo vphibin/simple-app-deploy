@@ -2,10 +2,17 @@
 #This playbook installs the web tier used to install the rack application.
 #This includes  Sinatra gem, and also the Phusion Passenger module for apache 
 
+#Install Rack 1.5.2  through gem which is required by Sinatra
+- name: Ensure Rack gem is installed and at the latest version
+  gem: name=rack state=present user_install=no version=1.5.2
+
 #Install Sinatra through gem
 - name: Ensure Sinatra gem is installed and at the latest version
   gem: name=sinatra state=latest user_install=no
 
+#Install Bundler through gem
+- name: Ensure Bundler gem is installed and at the latest version
+  gem: name=bundler state=latest user_install=no
 
 ##Add the APT repository for Phusion passenger
 - name: Add PGP key for Phusion passenger
