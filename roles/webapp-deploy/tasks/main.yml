@@ -1,5 +1,6 @@
 ---
 #this play creates the directories required for deploying the rack application and copies the files for the simple sinatra application
+#Further it copies the vhosts.conf file using a template, enables the site and restarts apache
 
 
 - name: Create the directories for deploying the rack application, if not present
@@ -8,6 +9,14 @@
       - simple-sinatra-app
       - simple-sinatra-app/tmp
       - simple-sinatra-app/public
+
+- name: Copy the sinata application files and set the right permissions
+  copy: src={{ item }} dest=/var/www/simple-sinatra-app owner=root group=root mode=0644
+  with_items:
+      - config.ru
+      - helloworld.rb
+      - Gemfile
+      - Gemfile.lock
 
 - name: Create the vhosts.conf file using the template and copy it to the sites available 
   template: src=vhosts.conf.j2 dest=/etc/apache2/sites-available/vhosts.conf owner=root group=root mode=0644
