@@ -24,8 +24,8 @@ The playbook can be executed by using the following instructions:
 If you are using a private key file to connect to remote host, execute as below  
 ```$ ansible-playbook -i hosts --private-key=/path/to/private/key/file site.yml```  
 
-Below is an example url where the application has been successfully deployed by using this playbook:
-[ec2-52-10-210-106.us-west-2.compute.amazonaws.com](ec2-52-10-210-106.us-west-2.compute.amazonaws.com)
+Below is an example url where the application has been successfully deployed by using this playbook (Type in a new browser window)
+ec2-52-10-210-106.us-west-2.compute.amazonaws.com
 
 ### Credits
 
