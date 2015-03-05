@@ -1,0 +1,65 @@
+
+PLAY [configure and deploy the webservers and simple web application] ********* 
+
+GATHERING FACTS *************************************************************** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [common | Update apt cache before doing anything else] ****************** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [common | ensure basic packages Ruby, Make are installed and at the latest version] *** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com] => (item=make,ruby)
+
+TASK: [base-apache | ensure Apache is installed and at the latest version] **** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [sinatra-passenger | Ensure Rack gem is installed and at the latest version] *** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [sinatra-passenger | Ensure Sinatra gem is installed and at the latest version] *** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [sinatra-passenger | Ensure Bundler gem is installed and at the latest version] *** 
+changed: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [sinatra-passenger | Add PGP key for Phusion passenger] ***************** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [sinatra-passenger | Add HTTPS support for apt to enable passenger] ***** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com] => (item=apt-transport-https,ca-certificates)
+
+TASK: [sinatra-passenger | Copy passenger.list and set the right permissions] *** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [sinatra-passenger | Update apt cache] ********************************** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [sinatra-passenger | Install the package for Passenger] ***************** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [sinatra-passenger | Enable the Phusion Passenger apache module] ******** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [webapp-deploy | Create the directories for deploying the rack application, if not present] *** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com] => (item=simple-sinatra-app)
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com] => (item=simple-sinatra-app/tmp)
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com] => (item=simple-sinatra-app/public)
+
+TASK: [webapp-deploy | Copy the sinata application files and set the right permissions] *** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com] => (item=config.ru)
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com] => (item=helloworld.rb)
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com] => (item=Gemfile)
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com] => (item=Gemfile.lock)
+
+TASK: [webapp-deploy | Create the vhosts.conf file using the template and copy it to the sites available] *** 
+ok: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+TASK: [webapp-deploy | Enable apache2 site and restart apache] **************** 
+changed: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+NOTIFIED: [base-apache | restart apache] ************************************** 
+changed: [ec2-52-10-210-106.us-west-2.compute.amazonaws.com]
+
+PLAY RECAP ******************************************************************** 
+ec2-52-10-210-106.us-west-2.compute.amazonaws.com : ok=18   changed=3    unreachable=0    failed=0   
+
